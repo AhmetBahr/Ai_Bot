@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ai_bot_test/navBar.dart';
+import 'package:ai_bot_test/bottomNav.dart';
 
 void main() {
   runApp(const MyApp());
@@ -6,6 +8,9 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  //String Tanımlamalar
+  final String appbarString = 'Cifci Dostu ChatBot';
 
   // This widget is the root of your application.
   @override
@@ -16,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme:
             ColorScheme.fromSeed(seedColor: Color.fromRGBO(200, 228, 178, 1)),
       ),
-      home: const MyHomePage(title: 'Cifci Dostu'),
+      home: MyHomePage(title: appbarString),
     );
   }
 }
@@ -34,10 +39,20 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const Navbar(),
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text(
+          //Başlıktaki text yazısı data'ları
+          widget.title,
+          style: const TextStyle(
+              fontFamily: 'SemiJoined',
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black),
+        ),
       ),
+      bottomNavigationBar: const BottomNav(),
     );
   }
 }
