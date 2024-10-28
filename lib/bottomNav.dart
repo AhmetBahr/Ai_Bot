@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Bottomnav extends StatefulWidget {
-  const Bottomnav({super.key});
+class BottomNav extends StatefulWidget {
+  const BottomNav({super.key});
 
   @override
-  State<Bottomnav> createState() => _BottomnavState();
+  State<BottomNav> createState() => _BottomnavState();
 }
 
-class _BottomnavState extends State<Bottomnav> {
+class _BottomnavState extends State<BottomNav> {
   int currentIndex = 1;
   final screen = [];
 
