@@ -52,7 +52,8 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.black),
         ),
       ),
-      bottomNavigationBar: Bottomnav(),
+      body: Center(),
+      bottomNavigationBar: BottomNav(),
     );
   }
 }
