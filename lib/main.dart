@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: Center(),
-      bottomNavigationBar: BottomNav(),
+      // hadi ama hocam
     );
   }
 }
