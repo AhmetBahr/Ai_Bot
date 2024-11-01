@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Mainpage extends StatelessWidget {
+class Camerapage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
-        color: Colors.deepPurpleAccent[100],
+        color: Colors.amber[100],
         child: const Center(
-          child: Text("Main Page"),
+          child: Text("Camera Page"),
         ),
       );
 }

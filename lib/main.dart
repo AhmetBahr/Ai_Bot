@@ -1,6 +1,8 @@
+import 'package:ai_bot_test/Page/CameraPage.dart';
+import 'package:ai_bot_test/Page/MainPage.dart';
+import 'package:ai_bot_test/Page/chatBotPage.dart';
 import 'package:flutter/material.dart';
 import 'package:ai_bot_test/navBar.dart';
-import 'package:ai_bot_test/bottomNav.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,6 +38,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int currentIndex = 1;
+  List<Widget> pages = [
+    Mainpage(),
+    Camerapage(),
+    Chatbotpage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,8 +61,32 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.black),
         ),
       ),
-      body: Center(),
-      bottomNavigationBar: BottomNav(),
+      body: pages[currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        //unselectedItemColor: Colors.grey,
+        // backgroundColor: Colors.white,
+        //Yani kendim bir renk atamadım ve gayet güzel bir yeşil tonu var nerden geliyor bilmiyorum
+        //selectedItemColor: Colors.black,
+        iconSize: 28,
+        showUnselectedLabels: false,
+        currentIndex: currentIndex,
+        onTap: (index) => setState(() => currentIndex = index),
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_filled),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.camera_alt),
+            label: "Camera Page",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_bubble),
+            label: "ChatBot",
+          )
+        ],
+      ),
     );
   }
 }
