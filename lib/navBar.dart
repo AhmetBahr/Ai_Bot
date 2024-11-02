@@ -5,7 +5,6 @@ import 'package:ai_bot_test/DrawerPages/Help.dart';
 import 'package:ai_bot_test/DrawerPages/Login.dart';
 import 'package:ai_bot_test/DrawerPages/Logout.dart';
 import 'package:flutter/material.dart';
-import 'package:ai_bot_test/DrawerPages/Profile.dart';
 
 class Navbar extends StatelessWidget {
   const Navbar({super.key});
@@ -24,7 +23,7 @@ class Navbar extends StatelessWidget {
               child: Image.network(
                   'https://www.flaticon.com/free-icon/avatar_6858504'),
             )),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 color: Colors.green,
                 image: DecorationImage(
                     image: NetworkImage(
@@ -32,8 +31,8 @@ class Navbar extends StatelessWidget {
                     fit: BoxFit.cover)),
           ),
           ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Ayarlar'),
+              leading: const Icon(Icons.settings),
+              title: const Text('Ayarlar'),
               iconColor: Colors.green,
               onTap: () {
                 Navigator.pop(context);
@@ -42,8 +41,8 @@ class Navbar extends StatelessWidget {
                 ));
               }),
           ListTile(
-              leading: Icon(Icons.lock),
-              title: Text('Gizlilik'),
+              leading: const Icon(Icons.lock),
+              title: const Text('Gizlilik'),
               iconColor: Colors.green,
               onTap: () {
                 Navigator.pop(context);
@@ -52,8 +51,8 @@ class Navbar extends StatelessWidget {
                 ));
               }),
           ListTile(
-              leading: Icon(Icons.help),
-              title: Text('Yardım'),
+              leading: const Icon(Icons.help),
+              title: const Text('Yardım'),
               iconColor: Colors.green,
               onTap: () {
                 Navigator.pop(context);
@@ -62,8 +61,8 @@ class Navbar extends StatelessWidget {
                 ));
               }),
           ListTile(
-              leading: Icon(Icons.info),
-              title: Text('Hakkında'),
+              leading: const Icon(Icons.info),
+              title: const Text('Hakkında'),
               iconColor: Colors.green,
               onTap: () {
                 Navigator.pop(context);
@@ -72,8 +71,8 @@ class Navbar extends StatelessWidget {
                 ));
               }),
           ListTile(
-              leading: Icon(Icons.login),
-              title: Text('Giriş Yap'),
+              leading: const Icon(Icons.login),
+              title: const Text('Giriş Yap'),
               iconColor: Colors.green,
               onTap: () {
                 Navigator.pop(context);
@@ -82,8 +81,8 @@ class Navbar extends StatelessWidget {
                 ));
               }),
           ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Çıkış Yap'),
+              leading: const Icon(Icons.logout),
+              title: const Text('Çıkış Yap'),
               iconColor: Colors.green,
               onTap: () {
                 Navigator.pop(context);
