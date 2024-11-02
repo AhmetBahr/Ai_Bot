@@ -1,6 +1,7 @@
 import 'package:ai_bot_test/Page/CameraPage.dart';
 import 'package:ai_bot_test/Page/MainPage.dart';
 import 'package:ai_bot_test/Page/chatBotPage.dart';
+import 'package:ai_bot_test/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:ai_bot_test/navBar.dart';
 
@@ -19,10 +20,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'BMT Proje',
-      theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromRGBO(200, 228, 178, 1)),
-      ),
+      // theme: ThemeData(
+      //   colorScheme:
+      //       ColorScheme.fromSeed(seedColor: Color.fromRGBO(200, 228, 178, 1)),
+      // ),
+      theme: lightMode,
+      darkTheme: darkmode,
       home: MyHomePage(title: appbarString),
     );
   }
