@@ -1,11 +1,18 @@
 import 'package:ai_bot_test/Page/CameraPage.dart';
 import 'package:ai_bot_test/Page/MainPage.dart';
 import 'package:ai_bot_test/Page/chatBotPage.dart';
+import 'package:ai_bot_test/Theme/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:ai_bot_test/navBar.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,11 +25,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'BMT Proje',
-      theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromRGBO(200, 228, 178, 1)),
-      ),
+      theme: Provider.of<ThemeProvider>(context).themeData,
       home: MyHomePage(title: appbarString),
     );
   }
@@ -50,15 +55,16 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       drawer: const Navbar(),
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        //backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(
           //Başlıktaki text yazısı data'ları
           widget.title,
           style: const TextStyle(
-              fontFamily: 'SemiJoined',
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.black),
+            fontFamily: 'SemiJoined',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
         ),
       ),
       body: pages[currentIndex],
@@ -66,8 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
         type: BottomNavigationBarType.fixed,
         //unselectedItemColor: Colors.grey,
         // backgroundColor: Colors.white,
-        //Yani kendim bir renk atamadım ve gayet güzel bir yeşil tonu var nerden geliyor bilmiyorum
-        //selectedItemColor: Colors.black,
+        // selectedItemColor: Colors.green[800],
         iconSize: 28,
         showUnselectedLabels: false,
         currentIndex: currentIndex,
