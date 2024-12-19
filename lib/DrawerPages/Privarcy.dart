@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PrivarcyPage extends StatelessWidget {
-  const PrivarcyPage({Key? key}) : super(key: key);
+  const PrivarcyPage({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(

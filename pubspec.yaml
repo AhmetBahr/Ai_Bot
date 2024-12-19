@@ -33,3 +33,5 @@ flutter:
       fonts:
         - asset: fonts/PlaywriteGBS-Regular.ttf
 
+  assets:
+    - assets/images/

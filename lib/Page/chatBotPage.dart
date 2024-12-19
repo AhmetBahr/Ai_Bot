@@ -1,3 +1,5 @@
+import 'package:ai_bot_test/Theme/constants.dart';
+import 'package:ai_bot_test/Widgets/chat_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -34,7 +36,11 @@ class _ChatbotpageState extends State<Chatbotpage> {
           child: ListView.builder(
             itemCount: 6,
             itemBuilder: (context, index) {
-              return const Text("data");
+              return ChatWidget(
+                msg: chatMessages[index]["msg"].toString(),
+                chatIndex:
+                    int.parse(chatMessages[index]["chatIndex"].toString()),
+              );
             },
           ),
         ),
@@ -43,7 +49,7 @@ class _ChatbotpageState extends State<Chatbotpage> {
             color: Colors.white,
             size: 18,
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Material(
@@ -66,7 +72,7 @@ class _ChatbotpageState extends State<Chatbotpage> {
                   ),
                   IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.send_rounded,
                         color: Colors.white54,
                       ))

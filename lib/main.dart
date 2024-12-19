@@ -1,6 +1,7 @@
 import 'package:ai_bot_test/Page/CameraPage.dart';
 import 'package:ai_bot_test/Page/MainPage.dart';
 import 'package:ai_bot_test/Page/chatBotPage.dart';
+import 'package:ai_bot_test/Service/services.dart';
 import 'package:ai_bot_test/Theme/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:ai_bot_test/navBar.dart';
@@ -43,11 +44,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int currentIndex = 1;
+  int currentIndex = 0;
   List<Widget> pages = [
     Mainpage(),
     Camerapage(),
-    Chatbotpage(),
+    const Chatbotpage(),
   ];
 
   @override
@@ -66,6 +67,16 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.black,
           ),
         ),
+        actions: [
+          IconButton(
+              onPressed: () async {
+                await Services.showModalSheet(context: context);
+              },
+              icon: const Icon(
+                Icons.more_vert_rounded,
+                color: Colors.white,
+              ))
+        ],
       ),
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
