@@ -1,5 +1,5 @@
 import 'package:ai_bot_test/Service/assets_manager.dart';
-import 'package:ai_bot_test/Theme/constants.dart';
+import 'package:ai_bot_test/Constants/constants.dart';
 import 'package:ai_bot_test/Widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 

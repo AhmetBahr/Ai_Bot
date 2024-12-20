@@ -1,4 +1,5 @@
-import 'package:ai_bot_test/Theme/constants.dart';
+import 'package:ai_bot_test/Constants/constants.dart';
+import 'package:ai_bot_test/Service/api_service.dart';
 import 'package:ai_bot_test/Widgets/chat_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -63,7 +64,7 @@ class _ChatbotpageState extends State<Chatbotpage> {
                       style: const TextStyle(color: Colors.white),
                       controller: textEditingController,
                       onSubmitted: (value) {
-                        //ToDO send messega
+                        //ToDo send messega
                       },
                       decoration: const InputDecoration.collapsed(
                           hintText: "Send message.. ",
@@ -71,7 +72,13 @@ class _ChatbotpageState extends State<Chatbotpage> {
                     ),
                   ),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        try {
+                          await ApiService.getModels();
+                        } catch (error) {
+                          print("error $error");
+                        }
+                      },
                       icon: const Icon(
                         Icons.send_rounded,
                         color: Colors.white54,
