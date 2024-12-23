@@ -22,7 +22,7 @@ class ApiService {
       List temp = [];
       for (var value in jsonResponse["data"]) {
         temp.add(value);
-        log("temp  $value");
+        //log("temp  ${value["id"]}");
       }
       return ModelsModel.modelsFromSnapshot(temp);
     } catch (error) {

@@ -1,4 +1,4 @@
-import 'package:ai_bot_test/Theme/theme_provider.dart';
+import 'package:ai_bot_test/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
