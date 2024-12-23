@@ -2,10 +2,11 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:ai_bot_test/Constants/api_consts.dart';
+import 'package:ai_bot_test/models/models_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static Future<void> getModels() async {
+  static Future<List<ModelsModel>> getModels() async {
     try {
       var response = await http.get(
         Uri.parse("$BASE_URL/models"),
@@ -18,9 +19,15 @@ class ApiService {
         //print("jsonResponse['error'] ${jsonResponse['error']["message"]}");
         throw HttpException(jsonResponse['error']["message"]);
       }
+      List temp = [];
+      for (var value in jsonResponse["data"]) {
+        temp.add(value);
+        log("temp  $value");
+      }
+      return ModelsModel.modelsFromSnapshot(temp);
     } catch (error) {
       log("error $error");
-      // rethrow;
+      rethrow;
     }
   }
 }
