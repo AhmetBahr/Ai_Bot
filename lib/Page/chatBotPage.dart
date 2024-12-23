@@ -1,7 +1,7 @@
 import 'dart:developer';
-import 'package:ai_bot_test/Service/api_service.dart';
 import 'package:ai_bot_test/Widgets/chat_widget.dart';
-import 'package:ai_bot_test/models/chat_model.dart';
+import 'package:ai_bot_test/Widgets/text_widget.dart';
+import 'package:ai_bot_test/providers/chats_provider.dart';
 import 'package:ai_bot_test/providers/models_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -36,10 +36,11 @@ class _ChatbotpageState extends State<Chatbotpage> {
     super.dispose();
   }
 
-  List<ChatModel> chatList = [];
+  //List<ChatModel> chatList = [];
   @override
   Widget build(BuildContext context) {
     final modelsProvider = Provider.of<ModelsProvider>(context);
+    final chatProvider = Provider.of<ChatProvider>(context);
 
     return Scaffold(
         body: SafeArea(
@@ -48,11 +49,11 @@ class _ChatbotpageState extends State<Chatbotpage> {
         Flexible(
           child: ListView.builder(
             controller: _listeScrollController,
-            itemCount: chatList.length,
+            itemCount: chatProvider.getChatList.length, //chatList.length,
             itemBuilder: (context, index) {
               return ChatWidget(
-                msg: chatList[index].msg,
-                chatIndex: (chatList[index].chatIndex),
+                msg: chatProvider.getChatList[index].msg, //chatList[index].msg,
+                chatIndex: (chatProvider.getChatList[index].chatIndex),
               );
             },
           ),
@@ -78,9 +79,9 @@ class _ChatbotpageState extends State<Chatbotpage> {
                     style: const TextStyle(color: Colors.white),
                     controller: textEditingController,
                     onSubmitted: (value) async {
-                      await sendMesageFCY(
-                        modelsProvider: modelsProvider,
-                      );
+                      await sendMessageFCY(
+                          modelsProvider: modelsProvider,
+                          chatProvider: chatProvider);
                     },
                     decoration: const InputDecoration.collapsed(
                         hintText: "Send message.. ",
@@ -89,9 +90,9 @@ class _ChatbotpageState extends State<Chatbotpage> {
                 ),
                 IconButton(
                     onPressed: () async {
-                      await sendMesageFCY(
-                        modelsProvider: modelsProvider,
-                      );
+                      await sendMessageFCY(
+                          modelsProvider: modelsProvider,
+                          chatProvider: chatProvider);
                     },
                     icon: const Icon(
                       Icons.send_rounded,
@@ -112,26 +113,55 @@ class _ChatbotpageState extends State<Chatbotpage> {
         curve: Curves.easeOut);
   }
 
-  Future<void> sendMesageFCY({required ModelsProvider modelsProvider}) async {
-    try {
-      setState(
-        () {
-          _isTyping = true;
-          chatList
-              .add(ChatModel(msg: textEditingController.text, chatIndex: 0));
-          textEditingController.clear();
-          focusNode.unfocus();
-        },
-      );
-      chatList.addAll(
-        await ApiService.sendMessage(
-          message: textEditingController.text,
-          modelId: modelsProvider.getCurrentModel,
+  Future<void> sendMessageFCY(
+      {required ModelsProvider modelsProvider,
+      required ChatProvider chatProvider}) async {
+    if (_isTyping) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: TextWidget(
+            label: "You cant send multiple messages at a time",
+          ),
+          backgroundColor: Colors.red,
         ),
       );
+      return;
+    }
+    if (textEditingController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: TextWidget(
+            label: "Please type a message",
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+    try {
+      String msg = textEditingController.text;
+      setState(() {
+        _isTyping = true;
+        // chatList.add(ChatModel(msg: textEditingController.text, chatIndex: 0));
+        chatProvider.addUserMessage(msg: msg);
+        textEditingController.clear();
+        focusNode.unfocus();
+      });
+      await chatProvider.sendMessageAndGetAnswers(
+          msg: msg, chosenModelId: modelsProvider.getCurrentModel);
+      // chatList.addAll(await ApiService.sendMessage(
+      //   message: textEditingController.text,
+      //   modelId: modelsProvider.getCurrentModel,
+      // ));
       setState(() {});
     } catch (error) {
-      log("error:  $error");
+      log("error $error");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: TextWidget(
+          label: error.toString(),
+        ),
+        backgroundColor: Colors.red,
+      ));
     } finally {
       setState(() {
         scrollListToEND();

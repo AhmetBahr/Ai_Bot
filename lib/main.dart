@@ -2,6 +2,7 @@ import 'package:ai_bot_test/Page/CameraPage.dart';
 import 'package:ai_bot_test/Page/MainPage.dart';
 import 'package:ai_bot_test/Page/chatBotPage.dart';
 import 'package:ai_bot_test/Service/services.dart';
+import 'package:ai_bot_test/providers/chats_provider.dart';
 import 'package:ai_bot_test/providers/models_providers.dart';
 import 'package:ai_bot_test/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +32,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => ModelsProvider(),
         ),
-        // ChangeNotifierProvider(
-        //   create: (_) => ChatProvider(),
-        // ),
+        ChangeNotifierProvider(
+          create: (_) => ChatProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

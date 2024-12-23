@@ -1,13 +1,19 @@
 import 'package:ai_bot_test/Service/assets_manager.dart';
 import 'package:ai_bot_test/Constants/constants.dart';
 import 'package:ai_bot_test/Widgets/text_widget.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
 class ChatWidget extends StatelessWidget {
-  const ChatWidget({super.key, required this.msg, required this.chatIndex});
+  const ChatWidget(
+      {super.key,
+      required this.msg,
+      required this.chatIndex,
+      this.shouldAnimate = false});
 
   final String msg;
   final int chatIndex;
+  final bool shouldAnimate;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +28,7 @@ class ChatWidget extends StatelessWidget {
               children: [
                 Image.asset(
                   chatIndex == 0
-                      ? AssetsManager.openaiLogo // kullanıcı resmi
+                      ? AssetsManager.userImage // kullanıcı resmi
                       : AssetsManager.openaiLogo, // bot resmi
                   height: 30,
                   width: 30,
@@ -31,7 +37,34 @@ class ChatWidget extends StatelessWidget {
                   width: 8,
                 ),
                 Expanded(
-                  child: TextWidget(label: msg),
+                  child: chatIndex == 0
+                      ? TextWidget(
+                          label: msg,
+                        )
+                      : shouldAnimate
+                          ? DefaultTextStyle(
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16),
+                              child: AnimatedTextKit(
+                                  isRepeatingAnimation: false,
+                                  repeatForever: false,
+                                  displayFullTextOnTap: true,
+                                  totalRepeatCount: 1,
+                                  animatedTexts: [
+                                    TyperAnimatedText(
+                                      msg.trim(),
+                                    ),
+                                  ]),
+                            )
+                          : Text(
+                              msg.trim(),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16),
+                            ),
                 ),
                 chatIndex == 0
                     ? const SizedBox.shrink()
