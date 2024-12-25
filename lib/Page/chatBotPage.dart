@@ -56,15 +56,31 @@ class _ChatScreenState extends State<ChatScreen> {
                 final message = _messages[index];
                 return Padding(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text("User: ${message['user']}", // user name kullanılıcak
-                          style: const TextStyle(fontWeight: FontWeight.bold)),
-                      const SizedBox(height: 5),
-                      Text("Bot: ${message['bot']}",
-                          style: const TextStyle(color: Colors.blue)),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          "${message['user']}",
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "${message['bot']}",
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                        ),
+                      ),
                     ],
                   ),
                 );
@@ -72,28 +88,44 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
+            padding: const EdgeInsets.all(8),
+            child: Column(
               children: [
-                Expanded(
-                  child: TextField(
-                    controller: _controller,
-                    decoration: const InputDecoration(
-                      hintText: "Type a message...",
-                      border: OutlineInputBorder(),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _controller,
+                        decoration: const InputDecoration(
+                          hintText: "Type a message...",
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
                     ),
+                    IconButton(
+                      icon: const Icon(Icons.send),
+                      onPressed: () {
+                        final message = _controller.text;
+                        if (message.isNotEmpty) {
+                          _sendMessage(message);
+                          _controller.clear();
+                        }
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  textAlign: TextAlign.center,
+                  "Cifcim hata yapabilir. Önemli konuları kontrol ediniz",
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[500],
                   ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.send),
-                  onPressed: () {
-                    final message = _controller.text;
-                    if (message.isNotEmpty) {
-                      _sendMessage(message);
-                      _controller.clear();
-                    }
-                  },
-                ),
+                )
               ],
             ),
           ),
