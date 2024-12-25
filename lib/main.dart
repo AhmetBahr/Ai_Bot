@@ -1,6 +1,6 @@
 import 'package:ai_bot_test/Page/CameraPage.dart';
 import 'package:ai_bot_test/Page/MainPage.dart';
-import 'package:ai_bot_test/Page/chatBotPage.dart';
+import 'package:ai_bot_test/Page/ChatBotPage.dart';
 import 'package:ai_bot_test/Theme/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:ai_bot_test/navBar.dart';
@@ -45,7 +45,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int currentIndex = 0;
   List<Widget> pages = [
-    Mainpage(),
+    MainPage(),
     Camerapage(),
     ChatScreen(),
   ];

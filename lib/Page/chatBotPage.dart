@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -12,7 +13,6 @@ class _ChatScreenState extends State<ChatScreen> {
   final List<Map<String, String>> _messages = []; // Kullanıcı ve bot mesajları
 
   Future<void> _sendMessage(String message) async {
-    // Kullanıcı mesajını ekle
     setState(() {
       _messages.add(
           {"user": message, "bot": "Typing..."}); // "Typing..." geçici yanıt
@@ -44,6 +44,49 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
+  Future<void> _saveToMainPage(String userMessage, String botResponse) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final List<String> savedCards = prefs.getStringList('cards') ?? [];
+      savedCards.add(jsonEncode({"user": userMessage, "bot": botResponse}));
+      await prefs.setStringList(
+          'cards', savedCards); // Kaydetme işlemi tamamlanıyor
+    } catch (e) {
+      debugPrint("Error saving to SharedPreferences: $e");
+    }
+  }
+
+  void _showPopup(String userMessage, String botResponse) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(userMessage),
+          content: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(botResponse),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("Kapat"),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                print("Tıklandı ");
+                await _saveToMainPage(userMessage, botResponse);
+                Navigator.of(context).pop();
+              },
+              child: const Text("Kaydet"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,15 +99,49 @@ class _ChatScreenState extends State<ChatScreen> {
                 final message = _messages[index];
                 return Padding(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text("User: ${message['user']}", // user name kullanılıcak
-                          style: const TextStyle(fontWeight: FontWeight.bold)),
-                      const SizedBox(height: 5),
-                      Text("Bot: ${message['bot']}",
-                          style: const TextStyle(color: Colors.blue)),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          "${message['user']}",
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "${message['bot']}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.info_outline,
+                                  color: Colors.grey),
+                              onPressed: () {
+                                _showPopup(
+                                  message['user']!,
+                                  message['bot']!,
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 );
@@ -72,7 +149,7 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Row(
               children: [
                 Expanded(
