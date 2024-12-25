@@ -22,8 +22,8 @@ ThemeData darkmode = ThemeData(
     selectedItemColor: Color.fromRGBO(126, 170, 146, 1),
   ),
   textTheme: const TextTheme(
-    bodyLarge: TextStyle(color: Colors.white70, fontSize: 10),
-    bodyMedium: TextStyle(color: Colors.white70, fontSize: 8),
+    bodyLarge: TextStyle(color: Colors.white70, fontSize: 15),
+    bodyMedium: TextStyle(color: Colors.white70, fontSize: 14),
     titleLarge: TextStyle(color: Colors.white70, fontSize: 20),
   ),
 );

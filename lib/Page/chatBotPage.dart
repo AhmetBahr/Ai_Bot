@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -12,7 +13,6 @@ class _ChatScreenState extends State<ChatScreen> {
   final List<Map<String, String>> _messages = []; // Kullanıcı ve bot mesajları
 
   Future<void> _sendMessage(String message) async {
-    // Kullanıcı mesajını ekle
     setState(() {
       _messages.add(
           {"user": message, "bot": "Typing..."}); // "Typing..." geçici yanıt
@@ -44,6 +44,48 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
+  Future<void> _saveToMainPage(String userMessage, String botResponse) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final List<String> savedCards = prefs.getStringList('cards') ?? [];
+      savedCards.add(jsonEncode({"user": userMessage, "bot": botResponse}));
+      await prefs.setStringList('cards', savedCards);
+    } catch (e) {
+      debugPrint("Error saving to SharedPreferences: $e");
+    }
+  }
+
+  void _showPopup(String userMessage, String botResponse) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(userMessage),
+          content: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(botResponse),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("Kapat"),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                print("Tıklandı ");
+                await _saveToMainPage(userMessage, botResponse);
+                Navigator.of(context).pop();
+              },
+              child: const Text("Kaydet"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,12 +115,30 @@ class _ChatScreenState extends State<ChatScreen> {
                       const SizedBox(height: 10),
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: Text(
-                          "${message['bot']}",
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "${message['bot']}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.info_outline,
+                                  color: Colors.grey),
+                              onPressed: () {
+                                _showPopup(
+                                  message['user']!,
+                                  message['bot']!,
+                                );
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -89,43 +149,27 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
           Padding(
             padding: const EdgeInsets.all(8),
-            child: Column(
+            child: Row(
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _controller,
-                        decoration: const InputDecoration(
-                          hintText: "Type a message...",
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
+                Expanded(
+                  child: TextField(
+                    controller: _controller,
+                    decoration: const InputDecoration(
+                      hintText: "Type a message...",
+                      border: OutlineInputBorder(),
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.send),
-                      onPressed: () {
-                        final message = _controller.text;
-                        if (message.isNotEmpty) {
-                          _sendMessage(message);
-                          _controller.clear();
-                        }
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  textAlign: TextAlign.center,
-                  "Cifcim hata yapabilir. Önemli konuları kontrol ediniz",
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[500],
                   ),
-                )
+                ),
+                IconButton(
+                  icon: const Icon(Icons.send),
+                  onPressed: () {
+                    final message = _controller.text;
+                    if (message.isNotEmpty) {
+                      _sendMessage(message);
+                      _controller.clear();
+                    }
+                  },
+                ),
               ],
             ),
           ),
