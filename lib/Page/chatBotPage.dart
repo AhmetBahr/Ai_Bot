@@ -49,7 +49,8 @@ class _ChatScreenState extends State<ChatScreen> {
       final prefs = await SharedPreferences.getInstance();
       final List<String> savedCards = prefs.getStringList('cards') ?? [];
       savedCards.add(jsonEncode({"user": userMessage, "bot": botResponse}));
-      await prefs.setStringList('cards', savedCards);
+      await prefs.setStringList(
+          'cards', savedCards); // Kaydetme işlemi tamamlanıyor
     } catch (e) {
       debugPrint("Error saving to SharedPreferences: $e");
     }
