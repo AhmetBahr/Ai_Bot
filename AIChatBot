@@ -1,0 +1,112 @@
+from flask import Flask, request, jsonify, render_template
+import bs4
+from langchain import hub
+from langchain_community.document_loaders import WebBaseLoader
+import os
+from langchain.chat_models import ChatOpenAI
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnablePassthrough
+from langchain.embeddings import OpenAIEmbeddings
+import requests
+from langchain.schema import Document
+from langchain.vectorstores import FAISS
+from langchain.chains import LLMChain
+from langchain.llms import OpenAI
+from langchain.prompts import PromptTemplate
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+import openai
+from flask_cors import CORS
+
+# OpenAI API anahtarını ayarlayın
+openai.api_key = "YOUR_API_KEY"
+
+# Flask uygulamasını başlat
+app = Flask(__name__)
+CORS(app)  # CORS'u tüm istekler için etkinleştirir
+
+from langchain.vectorstores import FAISS
+from langchain.embeddings.openai import OpenAIEmbeddings
+
+
+import os
+
+os.environ["OPENAI_API_KEY"] = "YOUR_API_KEY"
+
+# OpenAI embeddings oluştur
+embedding = OpenAIEmbeddings()
+
+# Daha önce kaydedilen FAISS vektör deposunu yükle
+vectorstore = FAISS.load_local("faiss_index", embeddings=embedding, allow_dangerous_deserialization=True)
+
+retriever = vectorstore.as_retriever()
+
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
+from langchain.llms import OpenAI
+
+prompt_template = """
+Verilen bağlama dayalı olarak soruları yanıtlayan bir uzman asistansın. Adın Başak.
+
+Bağlam:
+{context}
+
+Soru:
+{question}
+
+Cevap:
+Eğer soruda "detaylı açıkla" gibi bir talep varsa, kapsamlı ve açıklayıcı bir cevap ver. Aksi takdirde, cevabı en fazla 5 cümle ile sınırla ve organize bir şekilde sun.
+"""
+prompt = PromptTemplate(template=prompt_template, input_variables=["context", "question"])
+
+# LLM'i tanımlama
+llm = ChatOpenAI(model="gpt-3.5-turbo",
+                 temperature=0.2,
+                 openai_api_key=openai.api_key)
+
+# RAG Chain oluşturma
+rag_chain = LLMChain(
+    llm=llm,
+    prompt=prompt
+)
+
+
+# Geçmişi tutmak için bir liste tanımla
+conversation_history = []
+
+@app.route("/")
+def home():
+    return render_template("chatbot.html")  # HTML dosyanızı yükler
+
+# Soruları yanıtlayacak fonksiyon
+@app.route("/ask", methods=["POST"])
+def ask_question_with_history():
+    global conversation_history
+
+    # POST isteğinden gelen JSON verisini al
+    data = request.get_json()
+    question = data.get("question")  # Burada question'ı alıyoruz
+
+    if not question:
+        return jsonify({"error": "Question is required"}), 400
+
+    # Geçmişi birleştirerek bağlam oluştur
+    context = "\n\n".join([f"User: {q}\nAssistant: {a}" for q, a in conversation_history])
+
+    # Yeni bağlamı güncelle
+    docs_context = retriever.get_relevant_documents(context + "\n\n" + question)
+    context += "\n\n" + "\n\n".join([doc.page_content for doc in docs_context])
+
+    # RAG Chain ile yanıt oluştur
+    try:
+        answer = rag_chain.run({"question": question, "context": context})
+        conversation_history.append((question, answer))  # Geçmişe ekle
+        # Geçmişi sadece son 3 soruyla sınırlayın
+        conversation_history = conversation_history[-2:]
+        return jsonify({"answer": answer})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+if __name__ == "__main__":
+    app.run(host="192.168.241.125", port=5000, debug=True)
