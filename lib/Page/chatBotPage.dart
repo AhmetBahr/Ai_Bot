@@ -237,8 +237,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                     ),
                                   ),
                                   IconButton(
-                                    icon: const Icon(Icons.info_outline,
-                                        color: Colors.grey),
+                                    icon: const Icon(Icons.save_alt_rounded,
+                                        color: Colors.black),
                                     onPressed: () {
                                       _showPopup(
                                         message['user']!,
@@ -267,7 +267,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: TextField(
                     controller: _controller,
                     decoration: InputDecoration(
-                      hintText: "Type a message...",
+                      hintText: "Bir mesaj yazın...",
                       hintStyle: TextStyle(
                         fontFamily:
                             'Kanit', // Kullanmak istediğiniz font ailesi

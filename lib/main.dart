@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   //String Tanımlamalar
-  final String appbarString = 'Cifci Dostu ChatBot';
+  final String appbarString = 'ChatBot Başak';
 
   // This widget is the root of your application.
   @override
@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
           //Başlıktaki text yazısı data'ları
           widget.title,
           style: const TextStyle(
-            fontFamily: 'SemiJoined',
+            fontFamily: 'Inter',
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Colors.black,
@@ -79,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_filled),
-            label: "Home",
+            label: "Ana Sayfa",
           ),
           // BottomNavigationBarItem(
           //   icon: Icon(Icons.camera_alt),
@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat_bubble),
-            label: "ChatBot",
+            label: "Chat Bot",
           )
         ],
       ),

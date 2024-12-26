@@ -6,7 +6,7 @@ class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
   final String appbarString = 'Ayarlar';
-  final String ThemeString = 'Theme';
+  final String ThemeString = 'Karanlık Tema';
 
   @override
   State<SettingsPage> createState() => _settingsPage();
@@ -21,7 +21,7 @@ class _settingsPage extends State<SettingsPage> {
         title: Text(
           widget.appbarString,
           style: const TextStyle(
-            fontFamily: 'SemiJoined',
+            fontFamily: 'Inter',
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Colors.black,
