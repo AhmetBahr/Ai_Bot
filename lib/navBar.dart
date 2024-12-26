@@ -1,3 +1,4 @@
+import 'package:ai_bot_test/DrawerPages/About.dart';
 import 'package:ai_bot_test/DrawerPages/Settings.dart';
 
 import 'package:ai_bot_test/Service/asset_manager.dart';
@@ -71,16 +72,16 @@ class Navbar extends StatelessWidget {
           //         builder: (context) => const HelpPage(),
           //       ));
           //     }),
-          // ListTile(
-          //     leading: const Icon(Icons.info),
-          //     title: const Text('Hakkında'),
-          //     iconColor: Colors.green,
-          //     onTap: () {
-          //       Navigator.pop(context);
-          //       Navigator.of(context).push(MaterialPageRoute(
-          //         builder: (context) => const AboutPage(),
-          //       ));
-          //     }),
+          ListTile(
+              leading: const Icon(Icons.info),
+              title: const Text('Hakkında'),
+              iconColor: Colors.green,
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const AboutPage(),
+                ));
+              }),
           // ListTile(
           //     leading: const Icon(Icons.login),
           //     title: const Text('Giriş Yap'),

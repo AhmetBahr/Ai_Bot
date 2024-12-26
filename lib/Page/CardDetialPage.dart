@@ -70,8 +70,8 @@ class CardDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Card Details",
-          style: TextStyle(fontFamily: 'SemiJoined', color: Colors.black),
+          "",
+          style: TextStyle(fontFamily: 'Kani', color: Colors.black),
         ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
