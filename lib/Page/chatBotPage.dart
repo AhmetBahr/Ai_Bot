@@ -14,7 +14,8 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
   final List<Map<String, String>> _messages = []; // Kullanıcı ve bot mesajları
   final ImagePicker _picker = ImagePicker();
-  final String httpId = "http://192.168.241.125:5000";
+  final String httpIdText = "http://192.168.241.125:5000";
+  final String httpIdFoto = "http://192.168.241.125:6000";
 
   Future<void> _sendMessage(String message) async {
     setState(() {
@@ -22,7 +23,7 @@ class _ChatScreenState extends State<ChatScreen> {
           {"user": message, "bot": "Typing..."}); // "Typing..." geçici yanıt
     });
 
-    final url = Uri.parse(httpId + "/ask");
+    final url = Uri.parse(httpIdText + "/ask");
     //final url = Uri.parse("http://192.168.241.125:5000/ask");
 
     try {
@@ -51,8 +52,8 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Future<void> testPredictAPI(String imagePath) async {
-    final url = Uri.parse("http://192.168.241.125:5000/predict");
-    // final url = Uri.parse(httpId + "/predict");
+    // final url = Uri.parse("http://192.168.241.125:5000/predict");
+    final url = Uri.parse(httpIdFoto + "/predict");
 
     try {
       // Görüntü dosyasını base64'e çevir
