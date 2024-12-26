@@ -1,4 +1,3 @@
-import 'package:ai_bot_test/Page/CameraPage.dart';
 import 'package:ai_bot_test/Page/MainPage.dart';
 import 'package:ai_bot_test/Page/ChatBotPage.dart';
 import 'package:ai_bot_test/Theme/theme_provider.dart';
@@ -46,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int currentIndex = 0;
   List<Widget> pages = [
     MainPage(),
-    Camerapage(),
+    //Camerapage(),
     ChatScreen(),
   ];
 
@@ -82,10 +81,10 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.home_filled),
             label: "Home",
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.camera_alt),
-            label: "Camera Page",
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.camera_alt),
+          //   label: "Camera Page",
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat_bubble),
             label: "ChatBot",

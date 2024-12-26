@@ -266,9 +266,20 @@ class _ChatScreenState extends State<ChatScreen> {
                 Expanded(
                   child: TextField(
                     controller: _controller,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: "Type a message...",
-                      border: OutlineInputBorder(),
+                      hintStyle: TextStyle(
+                        fontFamily:
+                            'Kanit', // Kullanmak istediğiniz font ailesi
+                        fontSize: 16,
+                        color: Colors.grey[700], // İsteğe bağlı renk
+                      ),
+                      border: const OutlineInputBorder(),
+                    ),
+                    style: TextStyle(
+                      fontFamily: 'Kanit', // Yazı yazılırken kullanılan font
+                      fontSize: 16,
+                      color: Colors.black, // İsteğe bağlı renk
                     ),
                   ),
                 ),
@@ -283,6 +294,19 @@ class _ChatScreenState extends State<ChatScreen> {
                   },
                 ),
               ],
+            ),
+          ),
+          const SizedBox(height: 0), // Ekstra boşluk
+          Padding(
+            padding: const EdgeInsets.all(3),
+            child: Text(
+              "Başak hata yapabilir. önemli konuları kontrol ediniz",
+              style: TextStyle(
+                fontFamily: "kanit",
+                color: Colors.grey[600], // Metin rengi
+                fontSize: 14, // Metin boyutu
+                fontWeight: FontWeight.bold, // Metin kalınlığı (isteğe bağlı)
+              ),
             ),
           ),
         ],

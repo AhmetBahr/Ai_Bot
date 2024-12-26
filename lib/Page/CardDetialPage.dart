@@ -28,14 +28,23 @@ class CardDetailPage extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Kartı Sil"),
-          content: const Text("Bu kartı silmek istediğinizden emin misiniz?"),
+          title: const Text(
+            "Kartı Sil",
+            style: TextStyle(fontFamily: 'Kanit'),
+          ),
+          content: const Text(
+            "Bu kartı silmek istediğinizden emin misiniz?",
+            style: TextStyle(fontFamily: 'Kanit'),
+          ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context); // Popup'ı kapat
               },
-              child: const Text("İptal"),
+              child: const Text(
+                "İptal",
+                style: TextStyle(fontFamily: 'Kanit'),
+              ),
             ),
             TextButton(
               onPressed: () {
@@ -44,7 +53,10 @@ class CardDetailPage extends StatelessWidget {
               },
               child: const Text(
                 "Sil",
-                style: TextStyle(color: Colors.red),
+                style: TextStyle(
+                  fontFamily: 'Kanit',
+                  color: Colors.red,
+                ),
               ),
             ),
           ],
@@ -57,7 +69,10 @@ class CardDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Card Details"),
+        title: const Text(
+          "Card Details",
+          style: TextStyle(fontFamily: 'SemiJoined', color: Colors.black),
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -81,6 +96,7 @@ class CardDetailPage extends StatelessWidget {
             Text(
               card['user'] ?? '',
               style: const TextStyle(
+                fontFamily: 'Kanit',
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -88,7 +104,10 @@ class CardDetailPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               card['bot'] ?? '',
-              style: const TextStyle(fontSize: 16),
+              style: const TextStyle(
+                fontFamily: 'Kanit',
+                fontSize: 16,
+              ),
             ),
           ],
         ),

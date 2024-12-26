@@ -37,7 +37,7 @@ class _settingsPage extends State<SettingsPage> {
                 title: Text(
                   widget.ThemeString,
                   style: const TextStyle(
-                    fontFamily: 'SemiJoined',
+                    fontFamily: 'Kanit',
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     //color: Colors.black,

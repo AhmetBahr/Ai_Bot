@@ -39,6 +39,10 @@ flutter:
     - family: SemiJoined
       fonts:
         - asset: fonts/PlaywriteGBS-Regular.ttf
+    - family: Kanit
+      fonts:
+        - asset: fonts/Kanit-Regular.ttf
+
 
   assets:
     - assets/images/
