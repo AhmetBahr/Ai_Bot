@@ -35,9 +35,7 @@ ChatBot Başak, arkasında güçlü bir doğal dil işleme altyapısıyla çalı
 
 - `OpenAI API` – GPT-3.5 modeli
 - `Prompt Engineering` – Rol tanımlı konuşma
-- `SpeechRecognition` – Mikrofon ile sesli sorgu imkânı
-- `gTTS` / `pyttsx3` – Yanıtların sesli okunması
-
+- `Görüntü İşleme` - Görüntü işleme ile fotoğraf gönderme ve hastalık tanıma
 ---
 
 ## 2. Uygulama ve Arayüz
