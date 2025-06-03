@@ -14,8 +14,8 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
   final List<Map<String, String>> _messages = []; // Kullanıcı ve bot mesajları
   final ImagePicker _picker = ImagePicker();
-  final String httpIdText = "http://192.168.241.125:5000";
-  final String httpIdFoto = "http://192.168.241.125:6000";
+  final String httpIdText = "http://192.168.1.186:5000";
+  final String httpIdFoto = "http://192.168.1.186:6000";
 
   Future<void> _sendMessage(String message) async {
     setState(() {
