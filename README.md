@@ -2,7 +2,11 @@
 
 ChatBot Başak, çiftçilerin tarımsal sorularına akıllı yanıtlar veren bütün diller için geliştirilmiş bir yapay zeka destekli asistan uygulamasıdır. Projenin amacı, teknolojiyle tarımı buluşturarak çiftçilere zaman ve bilgi kazandırmaktır. Çiftçilerin tarım ürünleri, bitkiler ve sebzeler hakkında bilgiler ve hayvancılık alanında yardım etmek için yapılan bir projedir.
 
+---
+
 [Tanıtım Videosunu İzle](https://www.youtube.com/watch?v=CBq4J4ReHJU)  
+
+
 [GitHub Projesi](https://github.com/AhmetBahr/Ai_Bot)
 
 ---
@@ -45,21 +49,21 @@ Uygulama Flutter, dart dili kullanılarak yapılmıştır. Basit ve erişilebili
 #### Canlı Chat Arayüzü
 Kullanıcılar arayüz üzerinden doğal dilde sorular sorabilir, chatbot yanıtlarını metin veya sesli olarak alabilir.
 
-![Chat Özelliği](https://i.imgur.com/knnvFYA.gif)
+![Chat Özelliği](https://imgur.com/gallery/writing-chatbot-knnvFYA)
 
 ---
 
 #### Sohbet Kaydetme
 Kullanıcı ile chatbot arasındaki konuşma geçmişi, .txt formatında kolayca kaydedilebilir.
 
-![Sohbet Kaydetme](https://i.imgur.com/xfaP12u.gif)
+![Sohbet Kaydetme](https://imgur.com/gallery/save-chat-xfaP12u)
 
 ---
 
 #### Ana Ekran ve Basit Kullanım
 Uygulamanın başlangıç ekranı, kullanıcıya anlaşılır bir giriş deneyimi sunar.
 
-![Ana Ekran](https://i.imgur.com/Yl0JcSa.gif)
+![Ana Ekran](https://imgur.com/gallery/main-screen-Yl0JcSa)
 
 ---
 
@@ -73,4 +77,4 @@ Uygulamanın başlangıç ekranı, kullanıcıya anlaşılır bir giriş deneyim
 
 ## Kurulum
 
-[Android APK İndir (v1.0)](https://github.com/AhmetBahr/Ai_Bot/releases/download/v1.0/BasakChatBot.apk)
+[Android APK İndir (v1.0)](https://github.com/AhmetBahr/Ai_Bot/tree/main/releases/download/v1.0)
