@@ -49,21 +49,21 @@ Uygulama Flutter, dart dili kullanılarak yapılmıştır. Basit ve erişilebili
 #### Canlı Chat Arayüzü
 Kullanıcılar arayüz üzerinden doğal dilde sorular sorabilir, chatbot yanıtlarını metin veya sesli olarak alabilir.
 
-![Chat Özelliği](https://imgur.com/gallery/writing-chatbot-knnvFYA)
+![Chat Özelliği](https://i.imgur.com/knnvFYA.gif)
 
 ---
 
 #### Sohbet Kaydetme
 Kullanıcı ile chatbot arasındaki konuşma geçmişi, .txt formatında kolayca kaydedilebilir.
 
-![Sohbet Kaydetme](https://imgur.com/gallery/save-chat-xfaP12u)
+![Sohbet Kaydetme](https://i.imgur.com/xfaP12u.gif)
 
 ---
 
 #### Ana Ekran ve Basit Kullanım
 Uygulamanın başlangıç ekranı, kullanıcıya anlaşılır bir giriş deneyimi sunar.
 
-![Ana Ekran](https://imgur.com/gallery/main-screen-Yl0JcSa)
+![Ana Ekran](https://i.imgur.com/Yl0JcSa.gif)
 
 ---
 
